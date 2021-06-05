@@ -8,6 +8,7 @@ use App\Entity\Area;
 use App\Entity\ApiCall;
 use App\Repository\AreaRepository;
 use App\Service\ApiMessageService;
+use App\Service\JsonSerialService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,9 +30,11 @@ use Symfony\Component\HttpFoundation\Request;
 class ApiController extends AbstractController
 {
     public $apiMsg;
-    public function __construct(ApiMessageService $apiMsg)
+    public $jsonSerialService;
+    public function __construct(ApiMessageService $apiMsg, JsonSerialService $jsonSerialService)
     {
         $this->apiMsg = $apiMsg;
+        $this->JsonSerialService =$jsonSerialService;
     }
 
 
@@ -56,19 +59,9 @@ class ApiController extends AbstractController
      */
     public function get_users(Request $request, UserRepository $userRepository): Response
     {
-        // dd($request->attributes->get('id'));
         $objCity = $userRepository->findAll();
-        $encoders = [new JsonEncoder()];
-        $normalizer = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizer, $encoders);
-        $json = $serializer->serialize($objCity, 'json', [
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
+        $response=$this->JsonSerialService->mySerializer($objCity);
 
-
-        $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
@@ -96,18 +89,8 @@ class ApiController extends AbstractController
     {
         // dd($request->attributes->get('id'));
         $objCity = $userRepository->findOneBy(['id' => $request->attributes->get('id')]);
-        $encoders = [new JsonEncoder()];
-        $normalizer = [new DateTimeNormalizer(array('datetime_format' => 'd.m.Y')), new ObjectNormalizer()];
-        $serializer = new Serializer($normalizer, $encoders);
-        $json = $serializer->serialize($objCity, 'json', [
-            /** @var Weather $object */
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
+        $response=$this->JsonSerialService->mySerializer($objCity);
 
-
-        $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
@@ -146,28 +129,19 @@ class ApiController extends AbstractController
         if ($code) {
 
             $valueOfArea = json_decode(file_get_contents("https://geo.api.gouv.fr/communes?code=" . $code));
-   
+
             $message = 'pas de resultats';
             if (!$valueOfArea) {
                 $area = new Area();
                 $area->setCode($valueOfArea[0]->code)
-                     ->setName($valueOfArea[0]->paris);
+                    ->setName($valueOfArea[0]->paris);
             }
         }
 
         $objArea = $areaRepository->findAll();
-        $encoders = [new JsonEncoder()];
-        $normalizer = [new DateTimeNormalizer(array('datetime_format' => 'd.m.Y')), new ObjectNormalizer()];
-        $serializer = new Serializer($normalizer, $encoders);
-        $json = $serializer->serialize($objArea, 'json', [
-            /** @var Weather $object */
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
+        $response=$this->JsonSerialService->mySerializer($objArea);
 
 
-        $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
@@ -204,24 +178,12 @@ class ApiController extends AbstractController
         }
         $area = new Area();
         $area->setCode($valueOfArea[0]->code)
-            // ->setAdresse()
-            // ->setLongitude()
-            // ->setLatitude()
             ->setName($valueOfArea[0]->nom);
         $objArea = $areaRepository->getOrCreate($area);
-        
-        $encoders = [new JsonEncoder()];
-        $normalizer = [new DateTimeNormalizer(array('datetime_format' => 'd.m.Y')), new ObjectNormalizer()];
-        $serializer = new Serializer($normalizer, $encoders);
-        $json = $serializer->serialize($objArea, 'json', [
-            /** @var Weather $object */
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
 
-        // dd($objArea);
-        $response = new Response($json);
+
+        $response=$this->JsonSerialService->mySerializer($objArea);
+
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
