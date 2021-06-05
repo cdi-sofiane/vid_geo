@@ -35,12 +35,11 @@ class DashboardController extends AbstractController
         $loggedUser =  $this->userRepository->findOneBy(['email' => $this->get('session')->get('_security.last_username')]);
         
         if ($loggedUser) {
-
+            
             $loggedUser->setCurrentPosition('{long:46.356;lat:57.56}');
             $updatedUser = $this->userRepository->updateCurrentPosition($loggedUser);
           
         }
-        //  $listUsers =$this->userRepository->findAll();
-        return $this->render('dashboard/view_dashboard.html.twig', ['user' =>$loggedUser]);
+        return $this->render('dashboard/view_dashboard.html.twig');
     }
 }
