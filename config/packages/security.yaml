@@ -32,7 +32,8 @@ security:
             # algorithm: auto
     firewalls:
         api:
-            pattern: /api/^doc/
+            # pattern: /api^/doc
+            pattern: ^/(api(?!/doc)|admin)
             provider: your_db_provider
             guard:
                 authenticators:
