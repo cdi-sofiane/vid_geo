@@ -50,6 +50,11 @@ class User implements UserInterface
      */
     private $apiCalls;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $currentPosition;
+
     public function __construct()
     {
         $this->apiCalls = new ArrayCollection();
@@ -175,6 +180,18 @@ class User implements UserInterface
                 $apiCall->setUsersId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCurrentPosition(): ?string
+    {
+        return $this->currentPosition;
+    }
+
+    public function setCurrentPosition(?string $currentPosition): self
+    {
+        $this->currentPosition = $currentPosition;
 
         return $this;
     }
