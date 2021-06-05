@@ -16,10 +16,11 @@ security:
                 class: App\Entity\User
                 property: email
 
-        your_db_provider:
+        api_key_user_provider:
             entity:
                 class: App\Entity\User
                 property: apiToken
+        
         # used to reload user from session & other features (e.g. switch_user)
                 
         # used to reload user from session & other features (e.g. switch_user)
@@ -34,7 +35,7 @@ security:
         api:
             # pattern: /api^/doc
             pattern: ^/(api(?!/doc)|admin)
-            provider: your_db_provider
+            provider: api_key_user_provider
             guard:
                 authenticators:
                     - App\Security\TokenAuthenticator

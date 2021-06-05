@@ -31,15 +31,17 @@ class DashboardController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        // dd( $this->requestStack);
+        // echo'<pre>';
+        // var_dump( $this->get('session')->get('_security.last_username')).die();
         $loggedUser =  $this->userRepository->findOneBy(['email' => $this->get('session')->get('_security.last_username')]);
-        
+
         if ($loggedUser) {
-            
+
             $loggedUser->setCurrentPosition('{long:46.356;lat:57.56}');
             $updatedUser = $this->userRepository->updateCurrentPosition($loggedUser);
-          
         }
-        return $this->render('dashboard/view_dashboard.html.twig');
+        return $this->render('dashboard/view_dashboard.html.twig', [
+            'user' => $updatedUser
+        ]);
     }
 }
