@@ -19,6 +19,22 @@ class AreaRepository extends ServiceEntityRepository
         parent::__construct($registry, Area::class);
     }
 
+
+    public function getOrCreate($objArea)
+    {
+
+        if (is_object($objArea)) {
+            $objIsValide = $this->findOneBy(['code' => $objArea->getCode()]);
+            if ($objIsValide != null) {
+                return $objIsValide;
+            } else {
+                $this->_em->persist($objArea);
+                $r = $this->_em->flush();
+                return $objArea;
+            }
+        }
+    }
+
     // /**
     //  * @return Area[] Returns an array of Area objects
     //  */

@@ -32,7 +32,7 @@ security:
             # algorithm: auto
     firewalls:
         api:
-            pattern: ^/api/doc/
+            pattern: /api/^doc/
             provider: your_db_provider
             guard:
                 authenticators:

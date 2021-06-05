@@ -46,6 +46,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $objUser;
     }
 
+    public function updateCurrentPosition($objUser)
+    {
+        if (is_object($objUser)) {
+            $this->_em->flush();
+        }
+        return $objUser;
+    }
+
 
     // /**
     //  * @return User[] Returns an array of User objects
