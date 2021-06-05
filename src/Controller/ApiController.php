@@ -24,7 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * 
+ * @Route("api/")
  * @IsGranted("ROLE_USER")
  */
 class ApiController extends AbstractController
@@ -39,7 +39,7 @@ class ApiController extends AbstractController
 
 
     /**
-     * @Route("/api/users", name="users",methods={"GET"})
+     * @Route("users", name="users",methods={"GET"})
      *  
      * @OA\Get(
      *  tags={"Users"}
@@ -67,7 +67,7 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api/user/{id}", name="user",methods={"GET"})
+     * @Route("user/{id}", name="user",methods={"GET"})
      *  
      * @OA\Get(
      *  tags={"Users"}
@@ -97,7 +97,7 @@ class ApiController extends AbstractController
 
 
     /**
-     * @Route("api/area", name="area",methods={"GET"})
+     * @Route("area", name="area",methods={"GET"})
      *  
      * @OA\Get(
      *  tags={"Area"}
@@ -145,7 +145,7 @@ class ApiController extends AbstractController
         return $response;
     }
     /**
-     * @Route("api/area/{code}", name="one_area",methods={"GET"})
+     * @Route("area/{code}", name="one_area",methods={"GET"})
      *  
      * @OA\Get(
      *  tags={"Area"}
