@@ -87,7 +87,6 @@ class ApiController extends AbstractController
      */
     public function get_user(Request $request, UserRepository $userRepository): Response
     {
-        // dd($request->attributes->get('id'));
         $objCity = $userRepository->findOneBy(['id' => $request->attributes->get('id')]);
         $response=$this->JsonSerialService->mySerializer($objCity);
 
@@ -172,7 +171,7 @@ class ApiController extends AbstractController
     {
         $code = $request->attributes->get('code');
         $valueOfArea = json_decode(file_get_contents("https://geo.api.gouv.fr/communes?code=" . $code));
-        // dd($valueOfArea);
+        
         if (!$valueOfArea) {
             return null;
         }
