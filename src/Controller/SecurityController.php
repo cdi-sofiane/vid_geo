@@ -33,7 +33,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -69,7 +69,7 @@ class SecurityController extends AbstractController
         if ($user) {
             return  $this->redirectToRoute('app_register');
         }
-        $resul = $userSessionService->setUserFromRequest($request->request);
+        $userSessionService->setUserFromRequest($request->request);
 
 
 

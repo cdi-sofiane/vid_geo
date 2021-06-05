@@ -5,21 +5,16 @@ namespace App\Controller;
 use App\Repository\UserRepository;
 use App\Entity\User;
 use App\Entity\Area;
-use App\Entity\ApiCall;
 use App\Repository\AreaRepository;
 use App\Service\ApiMessageService;
 use App\Service\JsonSerialService;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
+
 use OpenApi\Annotations as OA;
-use Swagger\Annotations as SWG;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -34,7 +29,7 @@ class ApiController extends AbstractController
     public function __construct(ApiMessageService $apiMsg, JsonSerialService $jsonSerialService)
     {
         $this->apiMsg = $apiMsg;
-        $this->JsonSerialService =$jsonSerialService;
+        $this->JsonSerialService = $jsonSerialService;
     }
 
 
@@ -56,11 +51,12 @@ class ApiController extends AbstractController
      *          
      *     )
      * )
+     * 
      */
     public function get_users(Request $request, UserRepository $userRepository): Response
     {
         $objCity = $userRepository->findAll();
-        $response=$this->JsonSerialService->mySerializer($objCity);
+        $response = $this->JsonSerialService->mySerializer($objCity);
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;
@@ -88,7 +84,7 @@ class ApiController extends AbstractController
     public function get_user(Request $request, UserRepository $userRepository): Response
     {
         $objCity = $userRepository->findOneBy(['id' => $request->attributes->get('id')]);
-        $response=$this->JsonSerialService->mySerializer($objCity);
+        $response = $this->JsonSerialService->mySerializer($objCity);
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;
@@ -138,7 +134,7 @@ class ApiController extends AbstractController
         }
 
         $objArea = $areaRepository->findAll();
-        $response=$this->JsonSerialService->mySerializer($objArea);
+        $response = $this->JsonSerialService->mySerializer($objArea);
 
 
         $response->headers->set('Content-Type', 'application/json');
@@ -171,7 +167,7 @@ class ApiController extends AbstractController
     {
         $code = $request->attributes->get('code');
         $valueOfArea = json_decode(file_get_contents("https://geo.api.gouv.fr/communes?code=" . $code));
-        
+
         if (!$valueOfArea) {
             return null;
         }
@@ -181,7 +177,7 @@ class ApiController extends AbstractController
         $objArea = $areaRepository->getOrCreate($area);
 
 
-        $response=$this->JsonSerialService->mySerializer($objArea);
+        $response = $this->JsonSerialService->mySerializer($objArea);
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;

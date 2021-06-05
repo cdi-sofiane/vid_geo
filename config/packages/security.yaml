@@ -34,7 +34,7 @@ security:
     firewalls:
         api:
             # pattern: /api^/doc
-            pattern: ^/(api(?!/doc)|admin)
+            pattern: (^/api(?!/^doc))
             provider: api_key_user_provider
             guard:
                 authenticators:

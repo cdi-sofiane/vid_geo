@@ -3,7 +3,25 @@
 {% block title %}Hello DashboardController!
 {% endblock %}
 
+
 {% block body %}
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container-fluid">
+
+
+			<div class="collapse navbar-collapse" id="navbarColor01">
+				<ul class="navbar-nav me-auto">
+
+					<li class="nav-item">
+						<a class="nav-link" href='/api/doc'>Swagger doc</a>
+					</li>
+
+
+				</ul>
+
+			</div>
+		</div>
+	</nav>
 	<style>
 		.example-wrapper {
 			margin: 1em auto;
@@ -21,7 +39,8 @@
 
 			<div class="form-group" style="display:flex;flex-flow: column">
 				<span>
-					email: {{user.getEmail() }}
+					email:
+					{{user.getEmail() }}
 				</span>
 				<span>
 					apiToken :{{user.getApiToken() }}
@@ -29,11 +48,9 @@
 			</div>
 
 
-			<a class="btn btn-secondary" href='/api/doc'>Swagger doc</a>
-
 			{# <button>
-													<a href="../api/doc">Swagger doc</a>
-												</button> #}
+																			<a href="../api/doc">Swagger doc</a>
+																		</button> #}
 		</div>
 	</div>
 {% endblock %}
