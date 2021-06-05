@@ -31,11 +31,16 @@ class DashboardController extends AbstractController
      */
     public function index(Request $request): Response
     {
+        // dd( $this->requestStack);
         $loggedUser =  $this->userRepository->findOneBy(['email' => $this->get('session')->get('_security.last_username')]);
-        $loggedUser->setCurrentPosition('{long:46.356;lat:57.56}');
-        $updatedUser = $this->userRepository->updateCurrentPosition($loggedUser);
-        $request->headers->set('X-AUTH-TOKEN', $updatedUser->getApiToken());
-        // dd($request->headers);
-        return $this->render('dashboard/view_dashboard.html.twig');
+        
+        if ($loggedUser) {
+
+            $loggedUser->setCurrentPosition('{long:46.356;lat:57.56}');
+            $updatedUser = $this->userRepository->updateCurrentPosition($loggedUser);
+          
+        }
+        //  $listUsers =$this->userRepository->findAll();
+        return $this->render('dashboard/view_dashboard.html.twig', ['user' =>$loggedUser]);
     }
 }
