@@ -9,17 +9,17 @@ use App\Repository\AreaRepository;
 use App\Service\ApiMessageService;
 use App\Service\JsonSerialService;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Nelmio\ApiDocBundle\Annotation\Security;
 
 use OpenApi\Annotations as OA;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Route("api/")
+ * @Route("/api")
  * @IsGranted("ROLE_USER")
  */
 class ApiController extends AbstractController
@@ -31,10 +31,9 @@ class ApiController extends AbstractController
         $this->apiMsg = $apiMsg;
         $this->JsonSerialService = $jsonSerialService;
     }
-
-
+  
     /**
-     * @Route("users", name="users",methods={"GET"})
+     * @Route("/users", name="users",methods={"GET"})
      *  
      * @OA\Get(
      *  tags={"Users"}
@@ -51,19 +50,19 @@ class ApiController extends AbstractController
      *          
      *     )
      * )
-     * 
+     *    
      */
     public function get_users(Request $request, UserRepository $userRepository): Response
     {
         $objCity = $userRepository->findAll();
-        $response = $this->JsonSerialService->mySerializer($objCity);
+        $response = JsonSerialService::mySerializer($objCity);
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
 
     /**
-     * @Route("user/{id}", name="user",methods={"GET"})
+     * @Route("/user/{id}", name="user",methods={"GET"})
      *  
      * @OA\Get(
      *  tags={"Users"}
@@ -71,7 +70,7 @@ class ApiController extends AbstractController
      * 
      * @OA\Response(
      *     response=200,
-     *     description="Returns the citys",
+     *     description="Returns user",
      * 
      *  
      *     @OA\JsonContent(
@@ -80,11 +79,12 @@ class ApiController extends AbstractController
      *          
      *     )
      * )
+     * 
      */
     public function get_user(Request $request, UserRepository $userRepository): Response
     {
         $objCity = $userRepository->findOneBy(['id' => $request->attributes->get('id')]);
-        $response = $this->JsonSerialService->mySerializer($objCity);
+        $response = JsonSerialService::mySerializer($objCity);
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;
@@ -93,7 +93,7 @@ class ApiController extends AbstractController
 
 
     /**
-     * @Route("area", name="area",methods={"GET"})
+     * @Route("/area", name="area",methods={"GET"})
      *  
      * @OA\Get(
      *  tags={"Area"}
@@ -111,10 +111,7 @@ class ApiController extends AbstractController
      *     )
      * 
      * )
-     * @OA\Parameter(name="code",in="query",description="code")
-     * @OA\Parameter(name="long",in="query",description="longitide")
-     * @OA\Parameter(name="lat",in="query",description="latitude")
-     * @OA\Parameter(name="adresse",in="query",description="adresse")
+     * @OA\Parameter(name="code",in="query",description="area code")
      * )
      */
 
@@ -129,19 +126,19 @@ class ApiController extends AbstractController
             if (!$valueOfArea) {
                 $area = new Area();
                 $area->setCode($valueOfArea[0]->code)
-                    ->setName($valueOfArea[0]->paris);
+                    ->setName($valueOfArea[0]->nom);
             }
         }
 
         $objArea = $areaRepository->findAll();
-        $response = $this->JsonSerialService->mySerializer($objArea);
+        $response = JsonSerialService::mySerializer($objArea);
 
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
     /**
-     * @Route("area/{code}", name="one_area",methods={"GET"})
+     * @Route("/area/{code}", name="one_area",methods={"GET"})
      *  
      * @OA\Get(
      *  tags={"Area"}
@@ -176,8 +173,8 @@ class ApiController extends AbstractController
             ->setName($valueOfArea[0]->nom);
         $objArea = $areaRepository->getOrCreate($area);
 
-
-        $response = $this->JsonSerialService->mySerializer($objArea);
+        $response = JsonSerialService::mySerializer($objArea);
+        // $response = JsonSerialService::mySerializer($objArea);
 
         $response->headers->set('Content-Type', 'application/json');
         return $response;

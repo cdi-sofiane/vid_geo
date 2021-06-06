@@ -17,7 +17,7 @@ class JsonSerialService
     {
     }
 
-    public function mySerializer($obj) :Response
+    public static function mySerializer($obj) :Response
     {
         $encoders = [new JsonEncoder()];
         $normalizer = [new DateTimeNormalizer(array('datetime_format' => 'd.m.Y')), new ObjectNormalizer()];

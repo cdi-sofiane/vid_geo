@@ -1,9 +1,10 @@
 
-alert('toto');
-var x = document.getElementById("demo");
+
+var x = document.querySelector("#demo");
 
 function getLocation() {
   if (navigator.geolocation) {
+    
     navigator.geolocation.getCurrentPosition(showPosition);
   } else { 
     x.innerHTML = "Geolocation is not supported by this browser.";
@@ -11,6 +12,9 @@ function getLocation() {
 }
 
 function showPosition(position) {
+  console.log(position);
   x.innerHTML = "Latitude: " + position.coords.latitude + 
   "<br>Longitude: " + position.coords.longitude;
+  
 }
+getLocation()
