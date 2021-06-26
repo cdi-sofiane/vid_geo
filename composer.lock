@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "adb66056e623927c997bcc0ef5da4591",
+    "content-hash": "136a66aeedfc868b1690b8889e2afff0",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -2395,6 +2395,67 @@
                 "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v5.6.1"
             },
             "time": "2020-08-25T19:10:18+00:00"
+        },
+        {
+            "name": "swagger-api/swagger-ui",
+            "version": "v3.51.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/swagger-api/swagger-ui.git",
+                "reference": "8a0489d181e60d3f52b03f4edabc375b2a7f90d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/8a0489d181e60d3f52b03f4edabc375b2a7f90d4",
+                "reference": "8a0489d181e60d3f52b03f4edabc375b2a7f90d4",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Anna Bodnia",
+                    "email": "anna.bodnia@gmail.com"
+                },
+                {
+                    "name": "Buu Nguyen",
+                    "email": "buunguyen@gmail.com"
+                },
+                {
+                    "name": "Josh Ponelat",
+                    "email": "jponelat@gmail.com"
+                },
+                {
+                    "name": "Kyle Shockey",
+                    "email": "kyleshockey1@gmail.com"
+                },
+                {
+                    "name": "Robert Barnwell",
+                    "email": "robert@robertismy.name"
+                },
+                {
+                    "name": "Sahar Jafari",
+                    "email": "shr.jafari@gmail.com"
+                }
+            ],
+            "description": " Swagger UI is a collection of HTML, Javascript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API.",
+            "homepage": "http://swagger.io",
+            "keywords": [
+                "api",
+                "documentation",
+                "openapi",
+                "specification",
+                "swagger",
+                "ui"
+            ],
+            "support": {
+                "issues": "https://github.com/swagger-api/swagger-ui/issues",
+                "source": "https://github.com/swagger-api/swagger-ui/tree/v3.51.0"
+            },
+            "time": "2021-06-23T18:34:42+00:00"
         },
         {
             "name": "symfony/asset",

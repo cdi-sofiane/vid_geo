@@ -13,6 +13,7 @@
         "nelmio/api-doc-bundle": "^4.2",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^5.1",
+        "swagger-api/swagger-ui": "^3.51",
         "symfony/asset": "4.4.*",
         "symfony/console": "4.4.*",
         "symfony/dotenv": "4.4.*",
