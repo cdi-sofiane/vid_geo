@@ -119,7 +119,6 @@ class ApiController extends AbstractController
     {
         $code = $request->query->get('code');
         if ($code) {
-
             $valueOfArea = json_decode(file_get_contents("https://geo.api.gouv.fr/communes?code=" . $code));
 
             $message = 'pas de resultats';
